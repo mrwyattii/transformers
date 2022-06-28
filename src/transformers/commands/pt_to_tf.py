@@ -47,7 +47,7 @@ if is_torch_available():
     import torch
 
 
-MAX_ERROR = 5e-5  # larger error tolerance than in our internal tests, to avoid flaky user-facing errors
+MAX_ERROR = 9e-3  # larger error tolerance than in our internal tests, to avoid flaky user-facing errors
 TF_WEIGHTS_NAME = "tf_model.h5"
 
 
@@ -276,7 +276,7 @@ class PTtoTFCommand(BaseTransformersCLICommand):
         # Save the weights in a TF format (if needed) and confirms that the results are still good
         tf_weights_path = os.path.join(self._local_dir, TF_WEIGHTS_NAME)
         if not os.path.exists(tf_weights_path) or self._new_weights:
-            tf_from_pt_model.save_weights(tf_weights_path)
+            tf_from_pt_model.save_pretrained(tf_weights_path)
         del tf_from_pt_model  # will no longer be used, and may have a large memory footprint
         tf_model = tf_class.from_pretrained(self._local_dir)
         conversion_differences = self.find_pt_tf_differences(pt_model, pt_input, tf_model, tf_input)
