@@ -10,8 +10,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  latest-torch-deepspeed-docker:
-    name: "Latest PyTorch + DeepSpeed"
+  latest-pytorch:
+    name: "Latest PyTorch [dev]"
     runs-on: ubuntu-latest
     steps:
       -
@@ -30,8 +30,8 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./docker/transformers-pytorch-deepspeed-latest-gpu
+          context: ./docker/transformers-pytorch-gpu
           build-args: |
             REF=main
           push: true
-          tags: huggingface/transformers-pytorch-deepspeed-latest-gpu
+          tags: huggingface/transformers-pytorch-gpu
